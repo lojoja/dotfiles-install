@@ -81,6 +81,7 @@ function getSudoPassword() {
 
   while true
   do
+    print >&2
     read -s "sudoPassword?$STYLES[magenta]$STYLES[bold]Enter sudo password:$STYLES[reset] "
     [[ $sudoPassword != $'\n' && $sudoPassword != $'\r' ]] && print >&2
     [[ $sudoPassword == *[![:space:]]* ]] && break
