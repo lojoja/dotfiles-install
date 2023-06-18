@@ -48,7 +48,7 @@ function info() {
 #
 # $1 - The message to print. Default is "Undefined".
 function ok() {
-  print "${STYLES[green]}$STYLES[bold]OK:$STYLES[reset] ${1:-"Undefined"}" >&2
+  print "$STYLES[green]$STYLES[bold]OK:$STYLES[reset] ${1:-"Undefined"}" >&2
 }
 
 # Print a stylized message prefixed with "Warning: ".
@@ -56,7 +56,7 @@ function ok() {
 # $1 - The message to print. Default is "Undefined".
 function warn() {
   print >&2
-  print "${STYLES[yellow]}$STYLES[bold]Warning:$STYLES[reset] ${1:-"Undefined"}" >&2
+  print "$STYLES[yellow]$STYLES[bold]Warning:$STYLES[reset] ${1:-"Undefined"}" >&2
 }
 
 ##########################
