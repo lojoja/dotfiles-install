@@ -14,6 +14,10 @@ DOTFILES_PATH="${BASE_PATH}/dotfiles" # The dotfiles install path
 DOTFILES_COMMAND="${DOTFILES_PATH}/bin/dotfiles"
 DOTFILES_COMMAND_TARGET="${BIN_PATH}/dotfiles"
 
+##########
+# Output #
+##########
+
 typeset -A STYLES=(
   'reset' $(tput sgr0)
   'bold' $(tput bold)
@@ -24,40 +28,52 @@ typeset -A STYLES=(
   'magenta' $(tput setaf 5)
 )
 
-#####################
-# Utility Functions #
-#####################
-
-# Print a message prefixed with "Error: " and stop execution.
+# Print a stylized message prefixed with "Error: ".
 #
-# $1 - The message to print
-function die() {
+# $1 - The message to print. Default is "Undefined".
+function error() {
   print >&2
-  print "$STYLES[red]$STYLES[bold]Error:$STYLES[reset] ${1:-'Undefined'}" >&2
+  print "$STYLES[red]$STYLES[bold]Error:$STYLES[reset] ${1:-"Undefined"}" >&2
+}
+
+# Print a stylized unprefixed message.
+#
+# $1 - The message to print. Default is "Undefined".
+function info() {
+  print >&2
+  print "$STYLES[blue]$STYLES[bold]${1:-"Undefined"}$STYLES[reset]" >&2
+}
+
+# Print a stylized message prefixed with "OK: ".
+#
+# $1 - The message to print. Default is "Undefined".
+function ok() {
+  print "${STYLES[green]}$STYLES[bold]OK:$STYLES[reset] ${1:-"Undefined"}" >&2
+}
+
+# Print a stylized message prefixed with "Warning: ".
+#
+# $1 - The message to print. Default is "Undefined".
+function warn() {
+  print >&2
+  print "${STYLES[yellow]}$STYLES[bold]Warning:$STYLES[reset] ${1:-"Undefined"}" >&2
+}
+
+##########################
+# Flow Control Functions #
+##########################
+
+# Stop execution with a relevant error message.
+#
+# $1 - The message to print. Default is "Undefined".
+function die() {
+  error "${1:-"Undefined"}"
   exit 1
 }
 
-# Print an unprefixed message.
-#
-# $1 - The message to print
-function info() {
-  print >&2
-  print "$STYLES[blue]$STYLES[bold]${1:-'Undefined'}$STYLES[reset]" >&2
-}
-
-# Print a message prefixed with "OK: ".
-#
-# $1 - The message to print
-function ok() {
-  print "${STYLES[green]}$STYLES[bold]OK:$STYLES[reset] ${1:-'Undefined'}" >&2
-}
-
-# Print a message prefixed with "Warning: ".
-#
-# $1 - The message to print
-function warn() {
-  print "${STYLES[yellow]}$STYLES[bold]OK:$STYLES[reset] ${1:-'Undefined'}" >&2
-}
+#####################
+# Utility Functions #
+#####################
 
 # Prompt for sudo password. Password is printed to be captured by caller.
 function getSudoPassword() {
