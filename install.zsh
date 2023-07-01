@@ -2,16 +2,16 @@
 #
 # Initialize system and install dotfiles
 
-BIN_PATH=/usr/local/bin
-OPT_PATH=/usr/local/opt
-BASE_PATH="${OPT_PATH}/lojoja" # The base path for lojoja project installations
+LOCAL_PATH="$HOME/.local"
+BIN_PATH="${LOCAL_PATH}/bin"
+OPT_PATH="${LOCAL_PATH}/opt"
 
 DEPENDENCIES=('brew' 'port' 'git' 'zsh')
 
 DOTFILES_REPOSITORY=https://github.com/lojoja/dotfiles
 DOTFILES_DEPENDENCIES=('python311' 'py311-pip' 'py311-ansible') # Dotfiles dependencies are port names
 typeset -A DOTFILES_DEPENDENCIES_SELECT=('python311' 'python3::python311' 'py31-pip' 'pip::pip311' 'ansible' 'py311-ansible')
-DOTFILES_PATH="${BASE_PATH}/dotfiles" # The dotfiles install path
+DOTFILES_PATH="${OPT_PATH}/dotfiles" # The dotfiles install path
 DOTFILES_COMMAND="${DOTFILES_PATH}/bin/dotfiles"
 DOTFILES_COMMAND_TARGET="${BIN_PATH}/dotfiles"
 
@@ -155,11 +155,11 @@ function installDependencies() {
 function installDotfiles() {
   info 'Installing dotfiles'
 
-  if mkdir -p "$BASE_PATH" &>/dev/null
+  if mkdir -p "$LOCAL_PATH" "$BIN_PATH" "$OPT_PATH" &>/dev/null
   then
-    ok 'Base path exists'
+    ok 'Local paths exist'
   else
-    die 'Failed to create base path'
+    die 'Failed to create local paths'
   fi
 
   if git clone "$DOTFILES_REPOSITORY" "$DOTFILES_PATH" &>/dev/null
