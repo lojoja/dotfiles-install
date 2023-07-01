@@ -9,7 +9,8 @@ BASE_PATH="${OPT_PATH}/lojoja" # The base path for lojoja project installations
 DEPENDENCIES=('brew' 'port' 'git' 'zsh')
 
 DOTFILES_REPOSITORY=https://github.com/lojoja/dotfiles
-DOTFILES_DEPENDENCIES=('python311' 'py311-pip' 'ansible') # Dotfiles dependencies are port names
+DOTFILES_DEPENDENCIES=('python311' 'py311-pip' 'py311-ansible') # Dotfiles dependencies are port names
+typeset -A DOTFILES_DEPENDENCIES_SELECT=('python311' 'python3::python311' 'py31-pip' 'pip::pip311' 'ansible' 'py311-ansible')
 DOTFILES_PATH="${BASE_PATH}/dotfiles" # The dotfiles install path
 DOTFILES_COMMAND="${DOTFILES_PATH}/bin/dotfiles"
 DOTFILES_COMMAND_TARGET="${BIN_PATH}/dotfiles"
@@ -141,7 +142,7 @@ function installDependencies() {
   info 'Installing dotfiles dependencies'
 
   for dependency in $DOTFILES_DEPENDENCIES; do
-    if ! sudo port -N install $dependency
+    if ! sudo port -N install $dependency && sudo port -N select --set ${(@s/::/)DOTFILES_DEPENDENCIES_SELECT[$dependency]}
     then
       die "Failed to install $dependency"
     fi
