@@ -4,6 +4,7 @@
 
 LOCAL_PATH="$HOME/.local"
 BIN_PATH="${LOCAL_PATH}/bin"
+ETC_PATH="${LOCAL_PATH}/etc"
 OPT_PATH="${LOCAL_PATH}/opt"
 
 DEPENDENCIES=('brew' 'port' 'git' 'zsh')
@@ -155,7 +156,7 @@ function installDependencies() {
 function installDotfiles() {
   info 'Installing dotfiles'
 
-  if mkdir -p "$LOCAL_PATH" "$BIN_PATH" "$OPT_PATH" &>/dev/null
+  if mkdir -p "$LOCAL_PATH" "$BIN_PATH" "$ETC_PATH" "$OPT_PATH" &>/dev/null
   then
     ok 'Local paths exist'
   else
