@@ -177,7 +177,7 @@ function installDotfiles() {
     revertInstall 'Failed to link dotfiles command'
   fi
 
-  if dotfiles install
+  if "$DOTFILES_COMMAND_TARGET" install
   then
     ok 'dotfiles installed'
   else
