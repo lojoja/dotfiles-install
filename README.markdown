@@ -17,5 +17,11 @@ $ /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/lojoja/dotfiles-in
 ```
 
 
+## Uninstall
+```
+$ /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/lojoja/dotfiles-install/main/uninstall.zsh)"
+```
+
+
 ## License
 dotfiles-install is released under the [MIT License](./LICENSE)
