@@ -4,5 +4,13 @@
       "path": "."
     }
   ],
-  "settings": {}
+  "settings": {
+    "LSP": {
+      "ltex-ls": {
+        "settings": {
+          "ltex.dictionary": { "en-US": ["dotfiles", "dotfiles-install", "lojoja", "MacPorts", "zsh"] }
+        }
+      }
+    }
+  }
 }
